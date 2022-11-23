@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.untitled11">
    <application
-        android:label="untitled11"
+        android:label="KingPath"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
