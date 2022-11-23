@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled11/models/task_data.dart';
 import 'package:untitled11/widgets/tasks_list.dart';
 import 'package:untitled11/widgets/add_task_screen.dart';
-import 'package:untitled11/models/task.dart';
 
 void main() => runApp(Todolist());
 class Todolist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:  WholePage(),
-      debugShowCheckedModeBanner: false,
+    return ChangeNotifierProvider(
+      create: (context) => TaskData(),
+      child: MaterialApp(
+        home:  WholePage(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
 
-class WholePage extends StatefulWidget {
-
-  @override
-  _WholePageState createState() => _WholePageState();
-}
-
-class _WholePageState extends State<WholePage> {
-  List<Task> tasks = [
-    Task(name: 'buy milk'),
-    Task(name: 'buy shit'),
-    Task(name: 'buy shits')
-  ];
-
- // Widget buildBottumSheet(BuildContext context) => AddTaskScreen();
-
+class WholePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +28,9 @@ class _WholePageState extends State<WholePage> {
               context: context,
               builder: (context) => AddTaskScreen(
                       (newTaskTitle) {
-                        setState(() {
-                          tasks.add(Task(name: newTaskTitle));
-                        });
+                        // setState(() {
+                        //   tasks.add(Task(name: newTaskTitle));
+                        // });
                 Navigator.pop(context);
               }),
           );
@@ -71,7 +61,7 @@ class _WholePageState extends State<WholePage> {
                      ),
                    ),
                    Text(
-                     '${tasks.length} Tasks',
+                     '${Provider.of<TaskData>(context).taskCount} Tasks',
                      style: TextStyle(
                          color: Colors.white,
                          fontSize: 18.0,
@@ -86,7 +76,7 @@ class _WholePageState extends State<WholePage> {
                    decoration: BoxDecoration(
                      color: Colors.white
                    ),
-                   child: TaskLists(tasks),
+                   child: TaskLists(),
                  ),
              ),
            ],
